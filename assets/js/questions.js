@@ -1,6 +1,7 @@
 
 // Fifa World Cup Quiz Challenge Questions & Answers
 var quizQuestions =[
+    /* 
     {
         questTitle: "Who won the 1982 Fifa World Cup Spain?",
         answerChoices: ['West Germany', 'France', 'Poland', 'Italy'],
@@ -11,7 +12,7 @@ var quizQuestions =[
         answerChoices: ['Argentina', 'Belgium', 'France', 'West Germany'],
         correctAnswer:"Argentina"
     },
-    /* {
+    {
         questTitle: "Who won the 1990 Fifa World Cup Italy?",
         answerChoices: ['West Germany ', 'England', 'Italy', 'Argentina'],
         correctAnswer:"West Germany"
@@ -40,12 +41,12 @@ var quizQuestions =[
         questTitle: "Who won the 2010 Fifa World Cup South Africa?",
         answerChoices: ['Germany', 'Spain', 'Uruguay', 'Netherlands'],
         correctAnswer:"Spain"
-    },
+    },*/
     {
         questTitle: "Who won the 2014 Fifa World Cup Brazil?",
         answerChoices: ['Netherlands', 'Argentina', 'Brazil', 'Germany'],
         correctAnswer:"Germany"
-    }, */
+    }, 
     {
         questTitle: "Who won the 2018 Fifa World Cup Russia?",
         answerChoices: ['Croatia', 'England', 'France', 'Belgium'],

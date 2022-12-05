@@ -3,7 +3,9 @@ var startButton = document.querySelector("#start");
 var timerElement = document.querySelector(".timer");
 
 var startScreen = document.querySelector("#start-screen");
+var feedback =  document.querySelector("#feedback");
 
+// Variables related to Questions
 var questionsDiv = document.querySelector("#questions");
 var questionTitle = document.querySelector("#question-title");
 var questionChoices = document.querySelector("#choices");
@@ -13,9 +15,12 @@ var timer;
 var timerCount;
 var correctAnswer;
 var userAnswer;
-var numCorrects=0;
+var numCorrects = 0;
 
+// Audio related to the Correct user Answer
 var audioCorrect = new Audio('./assets/sfx/correct.wav');
+
+// Audio related to the Wrong user Answer
 var audioIncorrect = new Audio('./assets/sfx/incorrect.wav');
 
 // Reveal questions
@@ -40,20 +45,37 @@ function revealQuestions() {
             //bt.setAttribute('class', "answerBt");
             bt.setAttribute('id', j);
             bt.textContent = quizQuestions[i].answerChoices[j];
-            bt.setAttribute('onClick', 'checkAnswer(this.textContent,correctAnswer)');
+            //bt.setAttribute('onClick', 'checkAnswer(this.textContent,correctAnswer)');
             questionChoices.appendChild(bt);
-        };        
+
+            // Add the EventListener to the Answers Buttons and call the CheckAnswer Function 
+            const buttons = document.getElementsByTagName("button");
+            const buttonPressed = e => {
+                checkAnswer(e.target.textContent,correctAnswer)
+            }            
+            for (let button of buttons) {
+                button.addEventListener("click", buttonPressed);
+            }
+        };
     }
 };
 
+// Function to Check the user Answer
 function checkAnswer(userAnswer, correctAnswer) {
+    
+    // Set display the Feedback DIV to visible  
+    feedback.setAttribute("class", "visible");
     if (userAnswer === correctAnswer) {
         numCorrects++
         audioCorrect.play();
+        feedback.textContent = 'Correct answer!';
     } else {
         audioIncorrect.play();
-        timerCount = timerCount -10;
-    }    
+        timerCount = timerCount - 10;
+        feedback.textContent = 'Wrong answer!';
+    }
+        // Set display the Feedback DIV to hide  
+        //feedback.setAttribute("class", "hide");
 };
 
 // The startGame function is called when the start button is clicked
@@ -77,7 +99,7 @@ function startGame() {
     revealQuestions();
 }
 
-// The setTimer function starts and stops the timer and triggers winGame() and loseGame()
+// The setTimer function starts and stops the timer
 function startTimer() {
     // Sets timer
     timer = setInterval(function () {
@@ -92,8 +114,6 @@ function startTimer() {
         }
     }, 1000);
 }
-
-
 
 // Attach event listener to start button to call startGame function on click
 startButton.addEventListener("click", startGame);

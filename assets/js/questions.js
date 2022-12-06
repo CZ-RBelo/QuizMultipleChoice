@@ -26,12 +26,12 @@ var quizQuestions =[
         questTitle: "Who won the 1996 Fifa World Cup France?",
         answerChoices: ['France', 'Croatia', 'Brazil', 'Netherlands'],
         correctAnswer: 0 // correctAnswer:"France"
-    },*/
+    },
     {
         questTitle: "Who won the 2002 Fifa World Cup Japan , South Korea?",
         answerChoices: ['Brazil', 'Turkey', 'Germany', 'South Korea'],
         correctAnswer:"Brazil"
-    },
+    },*/
     {
         questTitle: "Who won the 2006 Fifa World Cup Germany?",
         answerChoices: ['Portugal', 'France', 'Germany', 'Italy'],

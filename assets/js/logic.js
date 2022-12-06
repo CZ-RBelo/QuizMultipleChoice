@@ -29,8 +29,6 @@ var audioIncorrect = new Audio('./assets/sfx/incorrect.wav');
 // Reveal questions
 function revealQuestions(i) {
 
-    resetDisplay()
-
     // Get the correct answer
     correctAnswer = quizQuestions[i].correctAnswer;
 
@@ -50,14 +48,18 @@ function revealQuestions(i) {
         bt.setAttribute('id', j);        
         bt.addEventListener("click", checkAnswer);
         bt.textContent = quizQuestions[i].answerChoices[j];
-        questionChoices.appendChild(bt);
+        questionChoices.appendChild(bt);      
 
     };
 };
 
 // Function to Check the user Answer
 function checkAnswer(event) {
+
+    // TEST to check which one is working
+    event.stopPropagation();
     event.preventDefault();
+
     var userAnswer = event.target.textContent;
 
     // Set display the Feedback DIV to visible  
@@ -68,7 +70,7 @@ function checkAnswer(event) {
         numCorrects++
         audioCorrect.play();
         feedback.textContent = 'Correct answer!';
-        // Wrong Answer
+    // Wrong Answer
     } else {
         audioIncorrect.play();
         if (timerCount >= 10) {
@@ -81,17 +83,13 @@ function checkAnswer(event) {
 };
 
 
-function resetDisplay() {
-    questionsDiv.innerHTML="";
-    document.querySelector("#questions").style.display = "none";
-}
-
-
-
-
 // The startGame function is called when the start button is clicked
 function startGame(event) {
+
+    // TEST to check which one is working
+    event.stopPropagation();
     event.preventDefault();
+
     // Set the timer to 10 sec for each Question
     timerCount = quizQuestions.length * 10;
 
@@ -119,6 +117,15 @@ function startGame(event) {
 
         // Call Reveal Questions Function
         revealQuestions(i);
+
+        // TEST to check which one is working
+        event.stopPropagation();
+        event.preventDefault();
+
+        // Clear the last group of questoin choices
+        while (questionChoices.hasChildNodes()) {
+            questionChoices.removeChild(questionChoices.firstChild);
+          };
     }
 }
 

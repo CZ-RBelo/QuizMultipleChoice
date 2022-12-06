@@ -26,22 +26,22 @@ var quizQuestions =[
         questTitle: "Who won the 1996 Fifa World Cup France?",
         answerChoices: ['France', 'Croatia', 'Brazil', 'Netherlands'],
         correctAnswer: 0 // correctAnswer:"France"
-    },
+    },*/
     {
         questTitle: "Who won the 2002 Fifa World Cup Japan , South Korea?",
         answerChoices: ['Brazil', 'Turkey', 'Germany', 'South Korea'],
-        correctAnswer: 0 // correctAnswer:"Brazil"
+        correctAnswer:"Brazil"
     },
     {
         questTitle: "Who won the 2006 Fifa World Cup Germany?",
         answerChoices: ['Portugal', 'France', 'Germany', 'Italy'],
-        correctAnswer: 3 // correctAnswer:"Italy"
+        correctAnswer:"Italy"
     },
     {
         questTitle: "Who won the 2010 Fifa World Cup South Africa?",
         answerChoices: ['Germany', 'Spain', 'Uruguay', 'Netherlands'],
-        correctAnswer: 1 // correctAnswer:"Spain"
-    },*/
+        correctAnswer:"Spain"
+    }/*,
     {
         questTitle: "Who won the 2014 Fifa World Cup Brazil?",
         answerChoices: ['Netherlands', 'Argentina', 'Brazil', 'Germany'],
@@ -52,4 +52,5 @@ var quizQuestions =[
         answerChoices: ['Croatia', 'England', 'France', 'Belgium'],
         correctAnswer:"France"
     }
+    */
 ]

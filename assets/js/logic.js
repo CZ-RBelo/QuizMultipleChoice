@@ -1,16 +1,19 @@
 // Assign HTML & CSS classes and IDs to Variables
+
+
 var startButton = document.querySelector("#start");
 var timerElement = document.querySelector(".timer");
 
 var startScreen = document.querySelector("#start-screen");
-var feedback =  document.querySelector("#feedback");
+var feedback = document.querySelector("#feedback");
+var viewHighscores = document.querySelector(".scores");
 
 // Variables related to Questions
 var questionsDiv = document.querySelector("#questions");
 var questionTitle = document.querySelector("#question-title");
 var questionChoices = document.querySelector("#choices");
 
-// JavaScript Variables
+// Logic Variables
 var timer;
 var timerCount;
 var correctAnswer;
@@ -24,63 +27,71 @@ var audioCorrect = new Audio('./assets/sfx/correct.wav');
 var audioIncorrect = new Audio('./assets/sfx/incorrect.wav');
 
 // Reveal questions
-function revealQuestions() {
+function revealQuestions(i) {
 
-    // First loop to get the questions
-    for (var i = 0; i < quizQuestions.length; i++) {
+    resetDisplay()
 
-        // Get the correct answer
-        correctAnswer = quizQuestions[i].correctAnswer;
+    // Get the correct answer
+    correctAnswer = quizQuestions[i].correctAnswer;
 
-        // Set the question title
-        questionTitle.textContent = quizQuestions[i].questTitle;
+    // Set the question title
+    questionTitle.textContent = quizQuestions[i].questTitle;
 
-        //console.log(quizQuestions[i].questTitle);
+    console.log(quizQuestions[i].questTitle);
 
-        // Second loop to get the choices for each question
-        for (var j = 0; j < quizQuestions[i].answerChoices.length; j++) {
+    // Loop to get the choices for each question
+    for (var j = 0; j < quizQuestions[i].answerChoices.length; j++) {        
 
-            // Add an button for each choice
-            var bt = document.createElement("button");
-            //bt.setAttribute('class', "answerBt");
-            bt.setAttribute('id', j);
-            bt.textContent = quizQuestions[i].answerChoices[j];
-            //bt.setAttribute('onClick', 'checkAnswer(this.textContent,correctAnswer)');
-            questionChoices.appendChild(bt);
+        console.log(quizQuestions[i].answerChoices[j]);
 
-            // Add the EventListener to the Answers Buttons and call the CheckAnswer Function 
-            const buttons = document.getElementsByTagName("button");
-            const buttonPressed = e => {
-                checkAnswer(e.target.textContent,correctAnswer)
-            }            
-            for (let button of buttons) {
-                button.addEventListener("click", buttonPressed);
-            }
-        };
-    }
+        // Add an button for each choice
+        var bt = document.createElement("button");
+        bt.setAttribute('class', "answerBt");
+        bt.setAttribute('id', j);        
+        bt.addEventListener("click", checkAnswer);
+        bt.textContent = quizQuestions[i].answerChoices[j];
+        questionChoices.appendChild(bt);
+
+    };
 };
 
 // Function to Check the user Answer
-function checkAnswer(userAnswer, correctAnswer) {
-    
+function checkAnswer(event) {
+    event.preventDefault();
+    var userAnswer = event.target.textContent;
+
     // Set display the Feedback DIV to visible  
     feedback.setAttribute("class", "visible");
+
+    // Correct Answer
     if (userAnswer === correctAnswer) {
         numCorrects++
         audioCorrect.play();
         feedback.textContent = 'Correct answer!';
+        // Wrong Answer
     } else {
         audioIncorrect.play();
-        timerCount = timerCount - 10;
+        if (timerCount >= 10) {
+            timerCount = timerCount - 10;
+        } else {
+            timerCount = 1;
+        }
         feedback.textContent = 'Wrong answer!';
     }
-        // Set display the Feedback DIV to hide  
-        //feedback.setAttribute("class", "hide");
 };
 
-// The startGame function is called when the start button is clicked
-function startGame() {
 
+function resetDisplay() {
+    questionsDiv.innerHTML="";
+    document.querySelector("#questions").style.display = "none";
+}
+
+
+
+
+// The startGame function is called when the start button is clicked
+function startGame(event) {
+    event.preventDefault();
     // Set the timer to 10 sec for each Question
     timerCount = quizQuestions.length * 10;
 
@@ -93,21 +104,38 @@ function startGame() {
     // Set display the Start-Screen DIV to hide
     startScreen.setAttribute("class", "hide");
 
+    // Set display the High Scores DIV to hide
+    viewHighscores.setAttribute("class", "hide");
+
     // Set display the Questions DIV to visible    
     questionsDiv.setAttribute("class", "visible");
 
-    revealQuestions();
+
+    // Loop to get the questions
+    for (var i = 0; i < quizQuestions.length; i++) {
+
+        // Set display the Feedback DIV to hide  
+        feedback.setAttribute("class", "hide");
+
+        // Call Reveal Questions Function
+        revealQuestions(i);
+    }
 }
 
 // The setTimer function starts and stops the timer
 function startTimer() {
+
     // Sets timer
     timer = setInterval(function () {
         timerCount--;
         timerElement.textContent = timerCount;
 
         // Tests if time has run out
-        if (timerCount === 0 || timerCount < 0) {
+        if (timerCount === 0) {
+
+            // Set display the High Scores DIV to visible
+            viewHighscores.setAttribute("class", "scores");
+
             // Clears interval
             clearInterval(timer);
             //loseGame();

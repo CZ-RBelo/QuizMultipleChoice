@@ -42,17 +42,26 @@ function revealQuestions(currentQuestionIndex) {
         // Add an button for each choice & display on the HTML page
         var bt = document.createElement("button");
         bt.setAttribute('class', "answerBt");
-        bt.setAttribute('id', j);        
-        bt.addEventListener("click", checkAnswer);
-        bt.textContent = quizQuestions[i].answerChoices[j];
+        bt.textContent = answerChoices;
+        bt.onclick = checkAnswer;
+        // Display the new button on the HTML page
         questionChoices.appendChild(bt);
-
     });
 };
 
 // Function to Check the user Answer
-function checkAnswer(event) {
-    event.preventDefault();
+function checkAnswer(event) {   
+
+    // Increase the Questions Index Array
+    currentQuestionIndex++;
+    
+    // Check the number of Questions made
+    if (currentQuestionIndex >= quizQuestions.length) {
+        // Call the End Game function
+        endtGame()
+    };
+
+    // Get the user Answer
     var userAnswer = event.target.textContent;
 
     // Set display the Feedback DIV to visible  
@@ -66,7 +75,9 @@ function checkAnswer(event) {
         audioCorrect.play();
         // Display "Correct answer!" message on the HTML page
         feedback.textContent = 'Correct answer!';
-        // Wrong Answer
+        //Go forward to the next question
+        revealQuestions(currentQuestionIndex);
+    //  If the user  Answer is Wrong
     } else {
         // Play the sounf of Wrong answer
         audioIncorrect.play();
@@ -83,19 +94,11 @@ function checkAnswer(event) {
     }
 };
 
-
-function resetDisplay() {
-    questionsDiv.innerHTML="";
-    document.querySelector("#questions").style.display = "none";
-}
-
-
-
-
-// The startGame function is called when the start button is clicked
-function startGame(event) {
-    event.preventDefault();
-    // Set the timer to 10 sec for each Question
+// Call the Init Function
+startButton.onclick = init;
+// The init function is called when the start button is clicked
+function init() {
+        // Set the timer to 10 sec for each Question
     timerCount = quizQuestions.length * 10;
     // Prevents start button from being clicked when the questions round is in progress
     startButton.disabled = true;
@@ -107,19 +110,7 @@ function startGame(event) {
     // Set display the High Scores DIV to hide
     viewHighscores.setAttribute("class", "hide");
     // Set display the Questions DIV to visible    
-    questionsDiv.setAttribute("class", "visible");
-
-
-    // Loop to get the questions
-    for (var i = 0; i < quizQuestions.length; i++) {
-
-        // Set display the Feedback DIV to hide  
-        feedback.setAttribute("class", "hide");
-
-        // Call Reveal Questions Function
-        revealQuestions(i);
-    }
-}
+    questionsDiv.setAttribute("class", "visible");}
 
 // The setTimer function starts and stops the timer
 function startTimer() {

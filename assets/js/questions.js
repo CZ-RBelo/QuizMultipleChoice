@@ -29,7 +29,7 @@ var quizQuestions =[
         questTitle: "Who won the Fifa World Cup Japan , South Korea 2002?",
         answerChoices: ['Brazil', 'Turkey', 'Germany', 'South Korea'],
         correctAnswer:"Brazil"
-    },*/
+    },
     {
         questTitle: "Who won the Fifa World Cup Germany 2006?",
         answerChoices: ['Portugal', 'France', 'Germany', 'Italy'],
@@ -39,7 +39,7 @@ var quizQuestions =[
         questTitle: "Who won the Fifa World Cup South Africa 2010?",
         answerChoices: ['Germany', 'Spain', 'Uruguay', 'Netherlands'],
         correctAnswer:"Spain"
-    }/*,
+    },
     {
         questTitle: "Who won the Fifa World Cup Brazil 2014?",
         answerChoices: ['Netherlands', 'Argentina', 'Brazil', 'Germany'],

@@ -24,7 +24,7 @@ The quiz should end when all questions are answered or the timer reaches 0.
 
 The images below illustrates the Quiz Multiple-Choice Questions web page appearance:    
 
-![Desktop web page mock-up](images/RB-Mock-Up-QuizMultipleChoice.jpg) 
+![Desktop web page mock-up](assets/images/RB-Mock-Up-QuizMultipleChoice.jpg) 
   
 ### Contributing
 

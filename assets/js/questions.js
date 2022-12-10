@@ -1,6 +1,6 @@
 // Fifa World Cup Quiz Challenge Questions & Answers
 var quizQuestions = [
-    {
+ /*   {
         questTitle: "Who won the 1982 Fifa World Cup Spain?",
         answerChoices: ['West Germany', 'France', 'Poland', 'Italy'],
         correctAnswer: "Italy"
@@ -35,7 +35,7 @@ var quizQuestions = [
         answerChoices: ['Portugal', 'France', 'Germany', 'Italy'],
         correctAnswer: "Italy"
     },
-    {
+   */ {
         questTitle: "Who won the Fifa World Cup South Africa 2010?",
         answerChoices: ['Germany', 'Spain', 'Uruguay', 'Netherlands'],
         correctAnswer: "Spain"

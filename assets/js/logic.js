@@ -1,4 +1,4 @@
-// Assign HTML & CSS classes and IDs to Variables
+// Assign Classes and IDs to Variables
 
 var startButton = document.querySelector("#start");
 var timerElement = document.querySelector(".timer");
@@ -6,16 +6,18 @@ var timerElement = document.querySelector(".timer");
 var startScreen = document.querySelector("#start-screen");
 var questionsDiv = document.querySelector("#questions");
 var endScreen = document.querySelector("#end-screen");
-
 var feedback = document.querySelector("#feedback");
-var viewHighscores = document.querySelector(".scores");
-
-var wrapper = document.querySelector(".wrapper");
+var highScores = document.querySelector(".scores");
 
 // Variables related to Questions & Choices
 
 var questionTitle = document.querySelector("#question-title");
 var questionChoices = document.querySelector("#choices");
+var btSub = document.querySelector("#submit");
+var btSub = document.querySelector("#submit");
+var userIni = document.querySelector("#initials");
+//document.getElementById("initials");
+var finalScore = document.querySelector("#final-score");
 
 // Logic Variables
 var timer;
@@ -23,8 +25,6 @@ var timerCount;
 var correctAnswer;
 var userAnswer;
 var numCorrects = 0;
-var numWrongs = 0;
-var numNot = 0;
 var currentQuestionIndex = 0;
 
 // Audio related to the Correct user Answer
@@ -67,15 +67,12 @@ function checkAnswer(event) {
     if (userAnswer === correctAnswer) {
         // Increase the number of correct answers
         numCorrects++;
-        //console.log("Right: " + numCorrects);
         // Play the sounf of correct answer
         audioCorrect.play();
         // Display "Correct answer!" message on the HTML page
         feedback.textContent = 'Correct answer!';
         //  If the user  Answer is Wrong
     } else {
-        numWrongs++;
-        //console.log("Wrong:" + numWrongs);
         // Play the sounf of Wrong answer
         audioIncorrect.play();
         // Checks the remaining time and subtract 10 secs from the clock
@@ -111,7 +108,7 @@ function init() {
     // Set display the Start-Screen DIV to hide
     startScreen.setAttribute("class", "hide");
     // Set display the High Scores DIV to hide
-    viewHighscores.setAttribute("class", "hide");
+    highScores.setAttribute("class", "hide");
     // Set display the Questions DIV to visible    
     questionsDiv.setAttribute("class", "visible");
 }
@@ -151,52 +148,65 @@ function endtGame() {
 
     // Clears interval
     clearInterval(timer);
-    // Clear the old questions
+
+    // Clear the old questions and choices
+    questionsDiv.innerHTML = "";
+    questionsDiv.setAttribute("class", "hide");
     questionChoices.innerHTML = "";
+    questionChoices.setAttribute("class", "hide");
     // Set display the Feedback DIV to hide  
+    feedback.innerHTML = "";
     feedback.setAttribute("class", "hide");
     // Set display the High Scores DIV to visible
-    viewHighscores.setAttribute("class", "scores");
+    highScores.setAttribute("class", "scores");
 
-    // Set display the user results
-    questionTitle.textContent = "Your results:";
-    // Total os Questions
-    var totalQuestions = document.createElement("h3");
-    totalQuestions.textContent = "Total of Questions: " + quizQuestions.length;
-    questionChoices.appendChild(totalQuestions);
-    // Total of answers not answerd
-    numNot = quizQuestions.length - numCorrects - numWrongs;
-    var totalNot = document.createElement("h3");
-    totalNot.textContent = "Total of Not Answered: " + numNot;
-    questionChoices.appendChild(totalNot);
-    // Total os right answers
-    var totalRight = document.createElement("h3");
-    totalRight.textContent = "Total of Right Answers: " + numCorrects;
-    questionChoices.appendChild(totalRight);
-    // total of wrong answers
-    var totalWrong = document.createElement("h3");
-    totalWrong.textContent = "Total of Wrong Answers: " + numWrongs;
-    questionChoices.appendChild(totalWrong);
-    // Break line 
-    questionChoices.insertAdjacentHTML('beforeend', '<hr>');
+    // Set display the endScreen DIV to visible
+    endScreen.setAttribute("class", "visible");
+    // Display the user result
+    finalScore.textContent = numCorrects;
+    // Set the user max num initials to 3
+    userIni.setAttribute("maxlength", "3");
+    // Attach event listener to input button to call displayHS (scores.js) function on click
+    btSub.onclick = displayHS;
 
+    function displayHS() {
 
-    // Add initials window
-    questionChoices.insertAdjacentHTML('beforeend', '<div><h1 id="quizInitials"><h2 id="quizInitialsTitle">');
-    document.getElementById('quizInitialsTitle').textContent = 'Add your initials below:';
-    // 
-    var initialsInp = document.createElement("input");
-    questionChoices.appendChild(initialsInp);
-    var BTNsubmitInitias = document.createElement("button");
-    BTNsubmitInitias.textContent = "Submit";
-    questionChoices.appendChild(BTNsubmitInitias);
-    // Break line 
-    questionChoices.insertAdjacentHTML('beforeend', '<hr>');
+        if (numCorrects > 0) {
+            if (userIni.value.length === 0) { userIni.value = "XXX" };
+            userScore = [{ user: userIni.value, value: numCorrects }];
 
-    console.log(initialsInp.value);
-    console.log(numCorrects);
+            const highScoreString = localStorage.getItem("HIGH_SCORES");
+            const highScores = JSON.parse(highScoreString);
 
-    BTNsubmitInitias.addEventListener("click", displayHS(initialsInp.value), numCorrects);
+            if (highScores == null) {
+                localStorage.setItem("HIGH_SCORES", JSON.stringify(userScore));
+            }
+            else {
+
+                if (highScores.length < 10) {
+                    highScores.push({ user: userIni.value, value: numCorrects });
+                } else {
+                    highScores.sort(function (a, b) {
+                        return a.value - b.value;
+                    });
+                    highScores.reverse();
+                    var lastRecord = highScores.length - 1;
+
+                    if (highScores[lastRecord].value < numCorrects) {
+                        highScores.splice(lastRecord, 1);
+                        highScores.push({ user: userIni.value, value: numCorrects });
+                    }
+                };
+                highScores.sort(function (a, b) {
+                    return a.value - b.value;
+                });
+                highScores.reverse();
+                // Set Local Storage    
+                localStorage.clear();
+                localStorage.setItem("HIGH_SCORES", JSON.stringify(highScores));
+            };
+        };
+    };
 };
-    // Attach event listener to start button to call startGame function on click
-    startButton.addEventListener("click", startGame);
+// Attach event listener to start button to call startGame function on click
+startButton.addEventListener("click", startGame);

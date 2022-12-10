@@ -4,13 +4,16 @@ var startButton = document.querySelector("#start");
 var timerElement = document.querySelector(".timer");
 
 var startScreen = document.querySelector("#start-screen");
+var questionsDiv = document.querySelector("#questions");
+var endScreen = document.querySelector("#end-screen");
+
 var feedback = document.querySelector("#feedback");
 var viewHighscores = document.querySelector(".scores");
 
 var wrapper = document.querySelector(".wrapper");
 
 // Variables related to Questions & Choices
-var questionsDiv = document.querySelector("#questions");
+
 var questionTitle = document.querySelector("#question-title");
 var questionChoices = document.querySelector("#choices");
 

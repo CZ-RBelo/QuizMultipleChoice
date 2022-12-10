@@ -23,6 +23,8 @@ var timerCount;
 var correctAnswer;
 var userAnswer;
 var numCorrects = 0;
+var numWrongs = 0;
+var numNot = 0;
 var currentQuestionIndex = 0;
 
 // Audio related to the Correct user Answer
@@ -53,51 +55,46 @@ function revealQuestions(currentQuestionIndex) {
         questionChoices.appendChild(bt);
     });
 };
-
 // Function to Check the user Answer
 function checkAnswer(event) {
-
     // Increase the Questions Index Array
     currentQuestionIndex++;
-
-    // Check the number of Questions made
-    if (currentQuestionIndex >= quizQuestions.length) {
-        // Call the End Game function
-        endtGame();
-    } else {
-
     // Get the user Answer
     var userAnswer = event.target.textContent;
-
     // Set display the Feedback DIV to visible  
     feedback.setAttribute("class", "visible");
-
     // If the user  Answer is Correct
     if (userAnswer === correctAnswer) {
         // Increase the number of correct answers
-        numCorrects++
+        numCorrects++;
+        //console.log("Right: " + numCorrects);
         // Play the sounf of correct answer
         audioCorrect.play();
         // Display "Correct answer!" message on the HTML page
         feedback.textContent = 'Correct answer!';
-        //Go forward to the next question
-        revealQuestions(currentQuestionIndex);
         //  If the user  Answer is Wrong
     } else {
+        numWrongs++;
+        //console.log("Wrong:" + numWrongs);
         // Play the sounf of Wrong answer
         audioIncorrect.play();
         // Checks the remaining time and subtract 10 secs from the clock
         if (timerCount >= 10) {
             timerCount = timerCount - 10;
-            //Go forward to the next question
-            revealQuestions(currentQuestionIndex);
-        } else {            
+        } else {
             // Call the End Game function
             endtGame();
         }
         // Display "Wrong answer!" message on the HTML page
         feedback.textContent = 'Wrong answer!';
     };
+    // Check the number of Questions made
+    if (currentQuestionIndex === quizQuestions.length) {
+        // Call the End Game function
+        endtGame();
+    } else {
+        //Go forward to the next question
+        revealQuestions(currentQuestionIndex);
     };
 };
 
@@ -111,7 +108,6 @@ function init() {
     startButton.disabled = true;
     // Start the timer countdown
     startTimer();
-
     // Set display the Start-Screen DIV to hide
     startScreen.setAttribute("class", "hide");
     // Set display the High Scores DIV to hide
@@ -128,7 +124,7 @@ function startTimer() {
         timerCount--;
         timerElement.textContent = "Time: " + timerCount;
         // Tests if time has run out
-        if (timerCount === 0) {                    
+        if (timerCount === 0) {
             endtGame();
         }
     }, 1000);
@@ -162,19 +158,45 @@ function endtGame() {
     // Set display the High Scores DIV to visible
     viewHighscores.setAttribute("class", "scores");
 
-    // Set the question title
+    // Set display the user results
     questionTitle.textContent = "Your results:";
-
+    // Total os Questions
     var totalQuestions = document.createElement("h3");
     totalQuestions.textContent = "Total of Questions: " + quizQuestions.length;
     questionChoices.appendChild(totalQuestions);
-    
+    // Total of answers not answerd
+    numNot = quizQuestions.length - numCorrects - numWrongs;
+    var totalNot = document.createElement("h3");
+    totalNot.textContent = "Total of Not Answered: " + numNot;
+    questionChoices.appendChild(totalNot);
+    // Total os right answers
     var totalRight = document.createElement("h3");
     totalRight.textContent = "Total of Right Answers: " + numCorrects;
     questionChoices.appendChild(totalRight);
+    // total of wrong answers
+    var totalWrong = document.createElement("h3");
+    totalWrong.textContent = "Total of Wrong Answers: " + numWrongs;
+    questionChoices.appendChild(totalWrong);
+    // Break line 
+    questionChoices.insertAdjacentHTML('beforeend', '<hr>');
 
-    //window.location.href = "highscores.html";
+
+    // Add initials window
+    questionChoices.insertAdjacentHTML('beforeend', '<div><h1 id="quizInitials"><h2 id="quizInitialsTitle">');
+    document.getElementById('quizInitialsTitle').textContent = 'Add your initials below:';
+    // 
+    var initialsInp = document.createElement("input");
+    questionChoices.appendChild(initialsInp);
+    var BTNsubmitInitias = document.createElement("button");
+    BTNsubmitInitias.textContent = "Submit";
+    questionChoices.appendChild(BTNsubmitInitias);
+    // Break line 
+    questionChoices.insertAdjacentHTML('beforeend', '<hr>');
+
+    console.log(initialsInp.value);
+    console.log(numCorrects);
+
+    BTNsubmitInitias.addEventListener("click", displayHS(initialsInp.value), numCorrects);
 };
-
-// Attach event listener to start button to call startGame function on click
-startButton.addEventListener("click", startGame);
+    // Attach event listener to start button to call startGame function on click
+    startButton.addEventListener("click", startGame);

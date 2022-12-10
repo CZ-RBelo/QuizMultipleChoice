@@ -4,7 +4,11 @@
 
 This is an application that intends to simulate a timed Quiz with multiple-choice questions.  
 When the game ends, it displays the highest scores and gives the user the ability to save their initials and their score.  
-The application has a mobile-responsive user interface that will run in the browser and will present dynamically updated HTML and CSS through JavaScript code.
+The application has a mobile-responsive user interface that will run in the browser and will present dynamically updated HTML and CSS through JavaScript code.  
+The high scores table stores just the top 10 results.  
+When a user gets a result higher than any other one in the table, the system automatically removes the lowest result and inserts the new one.  
+The code is dynamic, so more questions can be added, and even the number of choices for each question can be different from question to question.  
+>Note: Question number 4 has deliberately 6 possible choices.
 
 ## Instructions
 
@@ -20,11 +24,8 @@ The quiz should end when all questions are answered or the timer reaches 0.
 
 The images below illustrates the Quiz Multiple-Choice Questions web page appearance:    
 
-![Desktop web page mock-up](images/) 
+![Desktop web page mock-up](images/RB-Mock-Up-QuizMultipleChoice.jpg) 
   
-  
-[Mobile web page mock-up version link](images/) | [Tablet web page mock-up version link](images/)
-
 ### Contributing
 
 Why you should contribute to an open-source project?  

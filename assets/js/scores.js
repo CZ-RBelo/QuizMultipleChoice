@@ -8,7 +8,7 @@ const highScores = JSON.parse(highScoreString);
 
 // Check if Local Storage is empty
 if (highScores != null) {
-    // Display the highScores descending 
+    // Display the high scores descending 
     for (var i = 0; i < highScores.length; i++) {
         var li = document.createElement("li");
         li.textContent = highScores[i].user + " - " + highScores[i].value;
@@ -25,5 +25,5 @@ function clearStorage(event) {
     localStorage.clear();
 };
 
-// Attach event listener to Clear Highscores and go to Index.hmtl 
+// Attach event listener to Clear High Scores and go to Index.hmtl 
 clearButton.addEventListener("click", clearStorage);

@@ -218,6 +218,8 @@ function endtGame() {
                 localStorage.setItem("HIGH_SCORES", JSON.stringify(highScores));
             };
         };
+        // Go to highscores.html
+        window.open("./highscores.html", "_self");
     };
 };
 // Attach event listener to start button to call startGame function on click

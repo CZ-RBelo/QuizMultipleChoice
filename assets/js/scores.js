@@ -4,18 +4,27 @@ var highscoresOL = document.querySelector("#highscores");
 
 // Get Local Storage
 const highScoreString = localStorage.getItem("HIGH_SCORES");
-const highScores = JSON.parse(highScoreString);  
+const highScores = JSON.parse(highScoreString);
 
-// Display the highScores descending 
-for (var i = 0; i < highScores.length; i++) {
-    var li = document.createElement("li");
-    li.textContent = highScores[i].user + " - " + highScores[i].value;
-    highscoresOL.appendChild(li);
+// Check if Local Storage is empty
+if (highScores != null) {
+    // Display the highScores descending 
+    for (var i = 0; i < highScores.length; i++) {
+        var li = document.createElement("li");
+        li.textContent = highScores[i].user + " - " + highScores[i].value;
+        highscoresOL.appendChild(li);
+    }
 }
 
 // clearStorage function
-function clearStorage() {
+function clearStorage(event) {
+    event.preventDefault();
+    // Clear the old Highscores
+    highscoresOL.innerHTML = "";
+    // Clear the local storage
     localStorage.clear();
+    // Go back to index.html
+    window.open("./index.html", "_self");
 };
 
 // Attach event listener to Clear Highscores and go to Index.hmtl 

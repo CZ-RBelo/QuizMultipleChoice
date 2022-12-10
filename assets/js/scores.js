@@ -23,8 +23,6 @@ function clearStorage(event) {
     highscoresOL.innerHTML = "";
     // Clear the local storage
     localStorage.clear();
-    // Go back to index.html
-    window.open("./index.html", "_self");
 };
 
 // Attach event listener to Clear Highscores and go to Index.hmtl 

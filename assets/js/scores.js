@@ -1,31 +1,22 @@
 
-//localStorage.clear();
+var clearButton = document.querySelector("#clear");
+var highscoresOL = document.querySelector("#highscores");
 
 // Get Local Storage
-
 const highScoreString = localStorage.getItem("HIGH_SCORES");
 const highScores = JSON.parse(highScoreString);  
 
-console.log("HIGH SCORES TABLE"); 
-console.log(highScores);
-
-for (var i = 0; i < menu.drinks.length; i++) {
-    console.log(drinks[i].name);
+// Display the highScores descending 
+for (var i = 0; i < highScores.length; i++) {
+    var li = document.createElement("li");
+    li.textContent = highScores[i].user + " - " + highScores[i].value;
+    highscoresOL.appendChild(li);
 }
 
-<ol id="highscores"></ol>
+// clearStorage function
+function clearStorage() {
+    localStorage.clear();
+};
 
-
-/*
-
-// Clear the old questions
-questionChoices.innerHTML = "";
-
-
-// Set the question title
-questionTitle.textContent = quizQuestions[currentQuestionIndex].questTitle;
-
-
-document.getElementById('quizTitle').textContent = 'Fifa World Cup Quiz Challenge';
-document.getElementById('quizSubtitle').textContent = 'Test your knowledge with this quiz.';
-*/
+// Attach event listener to Clear Highscores and go to Index.hmtl 
+clearButton.addEventListener("click", clearStorage);

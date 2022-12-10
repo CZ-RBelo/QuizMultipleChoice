@@ -16,7 +16,6 @@ var questionChoices = document.querySelector("#choices");
 var btSub = document.querySelector("#submit");
 var btSub = document.querySelector("#submit");
 var userIni = document.querySelector("#initials");
-//document.getElementById("initials");
 var finalScore = document.querySelector("#final-score");
 
 // Logic Variables
@@ -62,7 +61,7 @@ function checkAnswer(event) {
     // Get the user Answer
     var userAnswer = event.target.textContent;
     // Set display the Feedback DIV to visible  
-    feedback.setAttribute("class", "visible");
+    feedback.setAttribute("class", "feedback");
     // If the user  Answer is Correct
     if (userAnswer === correctAnswer) {
         // Increase the number of correct answers
@@ -171,37 +170,50 @@ function endtGame() {
 
     function displayHS() {
 
+        // Check the number of right user answers
         if (numCorrects > 0) {
+
+            // Set user initials to XXX when is empty 
             if (userIni.value.length === 0) { userIni.value = "XXX" };
+
+            // Set an array with the user results
             userScore = [{ user: userIni.value, value: numCorrects }];
 
+            // Get the local saved results
             const highScoreString = localStorage.getItem("HIGH_SCORES");
             const highScores = JSON.parse(highScoreString);
 
+            // If the local saved results is empty then save the actual results
             if (highScores == null) {
                 localStorage.setItem("HIGH_SCORES", JSON.stringify(userScore));
             }
             else {
-
+                // Check the number of results saved
                 if (highScores.length < 10) {
+
+                    // If less than 10, just add the new result
                     highScores.push({ user: userIni.value, value: numCorrects });
                 } else {
+                    // If there is more than 10 results, will sort the array descending  
                     highScores.sort(function (a, b) {
                         return a.value - b.value;
                     });
                     highScores.reverse();
                     var lastRecord = highScores.length - 1;
 
+                    // Removes the min value and inser the new one 
                     if (highScores[lastRecord].value < numCorrects) {
                         highScores.splice(lastRecord, 1);
                         highScores.push({ user: userIni.value, value: numCorrects });
                     }
                 };
+                // Sort the array descending
                 highScores.sort(function (a, b) {
                     return a.value - b.value;
                 });
                 highScores.reverse();
-                // Set Local Storage    
+
+                // Set Local Storage
                 localStorage.clear();
                 localStorage.setItem("HIGH_SCORES", JSON.stringify(highScores));
             };

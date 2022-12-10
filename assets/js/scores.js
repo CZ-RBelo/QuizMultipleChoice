@@ -31,7 +31,6 @@ function displayHS(userInitials, userResult)
 
         //window.location.href = "highscores.html";
     };
-    */
 
 
 console.log(userInitials);

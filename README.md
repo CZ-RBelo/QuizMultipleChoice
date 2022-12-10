@@ -5,10 +5,11 @@
 This is an application that intends to simulate a timed Quiz with multiple-choice questions.  
 When the game ends, it displays the highest scores and gives the user the ability to save their initials and their score.  
 The application has a mobile-responsive user interface that will run in the browser and will present dynamically updated HTML and CSS through JavaScript code.  
+Whenever the user answers correctly, a sound is played, and whenever the answer is wrong, a different sound is played as well.  
 The high scores table stores just the top 10 results.  
 When a user gets a result higher than any other one in the table, the system automatically removes the lowest result and inserts the new one.  
 The code is dynamic, so more questions can be added, and even the number of choices for each question can be different from question to question.  
->Note: Question number 4 has deliberately 6 possible choices.
+>Note: Question number 4 has deliberately 6 possible choices.  
 
 ## Instructions
 
